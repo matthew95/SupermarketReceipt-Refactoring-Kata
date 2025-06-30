@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using SupermarketReceipt.interfaces;
+using SupermarketReceipt.models;
 
 namespace SupermarketReceipt
 {
     public class Teller: ITeller
     {
         private readonly ISupermarketCatalog _catalog;
-        private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
+        private readonly OfferCatalog _offers = new();
+        private ReceiptGenerator _receiptGenerator = new ReceiptGenerator();
 
-        public Teller(ISupermarketCatalog catalog)
+        public Teller(ISupermarketCatalog catalog /*, OfferCatalog offers*/)
         {
             _catalog = catalog;
+            // _offers = offers;
         }
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
@@ -31,8 +34,10 @@ namespace SupermarketReceipt
                 receipt.AddProduct(p, quantity, unitPrice, price);
             }
 
-            theCart.HandleOffers(receipt, _offers, _catalog);
-
+            
+            // theCart.HandleOffers(receipt, _offers, _catalog);
+            receipt = this._receiptGenerator.Generate(receipt, theCart, _offers, _catalog);
+            
             return receipt;
         }
     }

@@ -21,7 +21,7 @@ public class DiscountCalculatorQuantityForPrice
     // public Discount calculateDiscount()
     // {
     //     
-    //     // var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+    //     // var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantity % 5 * unitPrice);
     //     // discount = new Discount(p, x + " for " + PrintPrice(offer.Argument), -discountTotal);
     //     // // return new Discount(_product, _quantity, _price);
     // }
