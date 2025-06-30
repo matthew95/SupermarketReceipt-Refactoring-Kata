@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using SupermarketReceipt.interfaces;
 
 namespace SupermarketReceipt
 {
-    public class Teller
+    public class Teller: ITeller
     {
         private readonly ISupermarketCatalog _catalog;
         private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
@@ -17,9 +18,9 @@ namespace SupermarketReceipt
             _offers[product] = new Offer(offerType, product, argument);
         }
 
-        public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)
+        public IReceipt ChecksOutArticlesFrom(ICart theCart)
         {
-            var receipt = new Receipt();
+            IReceipt receipt = new Receipt();
             var productQuantities = theCart.GetItems();
             foreach (var pq in productQuantities)
             {

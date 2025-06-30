@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using SupermarketReceipt.interfaces;
 
 namespace SupermarketReceipt
 {
@@ -19,7 +20,7 @@ namespace SupermarketReceipt
         {
         }
 
-        public string PrintReceipt(Receipt receipt)
+        public string PrintReceipt(IReceipt receipt)
         {
             var result = new StringBuilder();
             foreach (var item in receipt.GetItems())
@@ -42,7 +43,7 @@ namespace SupermarketReceipt
             return result.ToString();
         }
 
-        private string PrintTotal(Receipt receipt)
+        private string PrintTotal(IReceipt receipt)
         {
             string name = "Total: ";
             string value = PrintPrice(receipt.GetTotalPrice());

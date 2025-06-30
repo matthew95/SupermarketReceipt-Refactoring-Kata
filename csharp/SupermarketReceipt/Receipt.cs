@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using SupermarketReceipt.interfaces;
 
 namespace SupermarketReceipt
 {
-    public class Receipt
+    public class Receipt: IReceipt
     {
         private readonly List<Discount> _discounts = new List<Discount>();
         private readonly List<ReceiptItem> _items = new List<ReceiptItem>();

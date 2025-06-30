@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Globalization;
+using SupermarketReceipt.interfaces;
 
 namespace SupermarketReceipt
 {
-    public class ShoppingCart
+    public class ShoppingCart: ICart
     {
         private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
         private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
@@ -35,7 +36,7 @@ namespace SupermarketReceipt
             }
         }
 
-        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
+        public void HandleOffers(IReceipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
         {
             foreach (var p in _productQuantities.Keys)
             {
