@@ -8,7 +8,7 @@ namespace SupermarketReceipt
     {
         private readonly ISupermarketCatalog _catalog;
         private readonly OfferCatalog _offers = new();
-        private ReceiptGenerator _receiptGenerator = new ReceiptGenerator();
+        private readonly ReceiptGenerator _receiptGenerator = new ReceiptGenerator();
 
         public Teller(ISupermarketCatalog catalog /*, OfferCatalog offers*/)
         {
@@ -36,7 +36,10 @@ namespace SupermarketReceipt
 
             
             // theCart.HandleOffers(receipt, _offers, _catalog);
-            receipt = this._receiptGenerator.Generate(receipt, theCart, _offers, _catalog);
+            
+            // I don't like the implicit modification of receipt but clearer for now than
+            // when also returning it in Generate()
+            this._receiptGenerator.Generate(receipt, theCart, _offers, _catalog);
             
             return receipt;
         }

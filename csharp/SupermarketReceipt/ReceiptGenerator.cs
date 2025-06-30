@@ -9,7 +9,7 @@ public class ReceiptGenerator
 {
     private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
     
-     public IReceipt Generate(IReceipt receipt, ICart cart, OfferCatalog offers, ISupermarketCatalog catalog)
+     public void Generate(IReceipt receipt, ICart cart, OfferCatalog offers, ISupermarketCatalog catalog)
         {
             foreach (var product in offers.Keys)
             {
@@ -59,8 +59,7 @@ public class ReceiptGenerator
                 if (discount != null)
                     receipt.AddDiscount(discount);
             }
-
-            return receipt;
+            
         }
         
         private string PrintPrice(double price)
