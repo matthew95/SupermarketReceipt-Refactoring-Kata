@@ -9,6 +9,9 @@ public class OfferTypeZForXFactory
     {
         Discount f(double quantity, double unitPrice)
         {
+            // TODO This feels really convoluted but can't think of the better way right now.
+            // fix later.
+            
             var quantityAsInt = (int)quantity;
             var numberOfYs = quantityAsInt / z;
             var discountAmount = quantity * unitPrice - (numberOfYs * forY * unitPrice + quantityAsInt % z * unitPrice);
