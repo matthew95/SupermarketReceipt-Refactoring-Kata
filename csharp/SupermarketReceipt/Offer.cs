@@ -11,6 +11,8 @@ namespace SupermarketReceipt
     public class Offer
     {
         private Product _product;
+        // Probably should add the discount description (i.e. my draft for ex. DiscountAmountForPrice) here so that 
+        // Shopping cart doesn't end up like a god class
 
         public Offer(SpecialOfferType offerType, Product product, double argument)
         {
