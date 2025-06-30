@@ -8,7 +8,7 @@ namespace SupermarketReceipt.Test
     [UsesVerify]
     public class SupermarketXUnitTest
     {
-        private SupermarketCatalog _catalog;
+        private ISupermarketCatalog _catalog;
         private Teller _teller;
         private ShoppingCart _theCart;
         private Product _toothbrush;

@@ -35,7 +35,7 @@ namespace SupermarketReceipt
             }
         }
 
-        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
+        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
         {
             foreach (var p in _productQuantities.Keys)
             {
