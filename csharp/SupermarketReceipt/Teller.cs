@@ -16,9 +16,10 @@ namespace SupermarketReceipt
             // _offers = offers;
         }
 
-        public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
+        // keep this method for easier testability at this point, will probably (re)move later.
+        public void AddSpecialOffer(IOfferTypeStrategy offerTypeStrategy, Product product)
         {
-            _offers[product] = new Offer(offerType, product, argument);
+            _offers[product] = new Offer(offerTypeStrategy, product);
         }
 
         public IReceipt ChecksOutArticlesFrom(ICart theCart)

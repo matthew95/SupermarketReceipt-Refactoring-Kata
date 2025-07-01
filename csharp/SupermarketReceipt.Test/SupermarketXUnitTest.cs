@@ -1,5 +1,6 @@
 
 using System.Threading.Tasks;
+using SupermarketReceipt.implementations;
 using SupermarketReceipt.interfaces;
 using VerifyXunit;
 using Xunit;
@@ -64,7 +65,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
-            _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            _teller.AddSpecialOffer(OfferTypeZForXFactory.Create(_toothbrush, 3, 2), _toothbrush);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -77,7 +78,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
-            _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            _teller.AddSpecialOffer(OfferTypeZForXFactory.Create(_toothbrush, 3, 2), _toothbrush);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -94,7 +95,7 @@ namespace SupermarketReceipt.Test
         public Task percent_discount()
         {
             _theCart.AddItem(_rice);
-            _teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _rice, 10.0);
+            _teller.AddSpecialOffer(OfferTypeZPercentDiscount.Create(_rice, 10.0), _rice);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -104,7 +105,7 @@ namespace SupermarketReceipt.Test
         {
             _theCart.AddItem(_cherryTomatoes);
             _theCart.AddItem(_cherryTomatoes);
-            _teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, _cherryTomatoes, .99);
+            _teller.AddSpecialOffer(OfferTypeZForAmountFactory.Create(_cherryTomatoes, 2, .99), _cherryTomatoes);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -113,7 +114,7 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount()
         {
             _theCart.AddItemQuantity(_apples, 5);
-            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
+            _teller.AddSpecialOffer(OfferTypeZForAmountFactory.Create(_apples, 5, 6.99), _apples);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -122,7 +123,7 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withSix()
         {
             _theCart.AddItemQuantity(_apples, 6);
-            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
+            _teller.AddSpecialOffer(OfferTypeZForAmountFactory.Create(_apples, 5, 6.99), _apples);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -131,7 +132,7 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withSixteen()
         {
             _theCart.AddItemQuantity(_apples, 16);
-            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
+            _teller.AddSpecialOffer(OfferTypeZForAmountFactory.Create(_apples, 5, 6.99), _apples);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
@@ -140,7 +141,7 @@ namespace SupermarketReceipt.Test
         public Task FiveForY_discount_withFour()
         {
             _theCart.AddItemQuantity(_apples, 4);
-            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
+            _teller.AddSpecialOffer(OfferTypeZForAmountFactory.Create(_apples, 5, 6.99), _apples);
             IReceipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }

@@ -21,24 +21,7 @@ public class ReceiptGenerator
                 var offer = res.Offer;
                 
                 Discount discount = null;
-                if (offer.OfferType == SpecialOfferType.TwoForAmount)
-                {
-                    discount = OfferTypeZForAmountFactory.Create(product, 2, offer.Argument).CalculateDiscount(quantity, unitPrice);
-                }
-
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
-                {
-                    discount = OfferTypeZForXFactory.Create(product, 3, 2).CalculateDiscount(quantity, unitPrice);
-                }
-
-                if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
-                {
-                    discount = OfferTypeZPercentDiscount.Create(product, offer.Argument).CalculateDiscount(quantity, unitPrice);
-                }
-                if (offer.OfferType == SpecialOfferType.FiveForAmount)
-                {
-                    discount = OfferTypeZForAmountFactory.Create(product, 5, offer.Argument).CalculateDiscount(quantity, unitPrice);
-                }
+                discount = offer.GetOfferTypeStratey().CalculateDiscount(quantity, unitPrice);
 
                 if (discount != null)
                     receipt.AddDiscount(discount);

@@ -1,3 +1,5 @@
+using SupermarketReceipt.interfaces;
+
 namespace SupermarketReceipt
 {
     public enum SpecialOfferType
@@ -10,18 +12,23 @@ namespace SupermarketReceipt
 
     public class Offer
     {
+        private readonly IOfferTypeStrategy _offerTypeStrategy;
         private Product _product;
-        // Probably should add the discount description (i.e. my draft for ex. DiscountAmountForPrice) here so that 
-        // Shopping cart doesn't end up like a god class
 
-        public Offer(SpecialOfferType offerType, Product product, double argument)
+        // okay so this offer class just became a wrapper for offerTypestrategies and corresponding products.
+        // Could probably make that one dictionary<Product, Offer> just dictionary<Product, IOfferTypeStrat> or something.
+        public Offer(IOfferTypeStrategy offerTypeStrategy, Product product)
         {
-            OfferType = offerType;
-            Argument = argument;
+            _offerTypeStrategy = offerTypeStrategy;
             _product = product;
         }
 
-        public SpecialOfferType OfferType { get; }
-        public double Argument { get; }
+        public IOfferTypeStrategy GetOfferTypeStratey()
+        {
+            return _offerTypeStrategy;
+        }
+        
+        
+        
     }
 }
