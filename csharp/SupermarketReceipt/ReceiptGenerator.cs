@@ -12,20 +12,14 @@ public class ReceiptGenerator
     
      public void Generate(IReceipt receipt, ICart cart, OfferCatalog offers, ISupermarketCatalog catalog)
         {
+            
             foreach (var product in offers.Keys)
             {
-                var quantityOptional = cart.GetItemQuantity(product);
-                if (!offers.ContainsKey(product) || !quantityOptional.HasValue)
-                {
-                    //TODO okay the offers.ContainsKey() is redundant because I iterate over the offers.Keys but will fix later
-                    continue;
-                }
+                var res = GetQuantityAndPriceHelper(product, cart, offers, catalog);
+                var quantity = res.Quantity;
+                var unitPrice = res.UnitPrice;
+                var offer = res.Offer;
                 
-                var quantity = quantityOptional.Value;
-                var quantityAsInt = (int)quantity;
-                
-                var offer = offers[product];
-                var unitPrice = catalog.GetUnitPrice(product);
                 Discount discount = null;
                 if (offer.OfferType == SpecialOfferType.TwoForAmount)
                 {
@@ -51,4 +45,27 @@ public class ReceiptGenerator
             }
             
         }
+
+        private QuantityAndPrice GetQuantityAndPriceHelper(Product product, ICart cart, OfferCatalog offers, ISupermarketCatalog catalog)
+        {
+            var quantityOptional = cart.GetItemQuantity(product);
+            if (!offers.ContainsKey(product) || !quantityOptional.HasValue)
+            {
+                //TODO okay the offers.ContainsKey() is redundant because I iterate over the offers.Keys but will fix later
+                return null;
+            }
+                
+            var quantity = quantityOptional.Value;
+            var unitPrice = catalog.GetUnitPrice(product);
+            
+            // this one will disappear in a few refactoring steps..
+            var offer = offers[product];
+
+            return new QuantityAndPrice()
+            {
+                Quantity = quantity,
+                UnitPrice = unitPrice,
+                Offer = offer,
+            };
+        } 
 }
