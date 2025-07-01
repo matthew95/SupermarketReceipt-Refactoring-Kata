@@ -3,9 +3,9 @@ using SupermarketReceipt.interfaces;
 
 namespace SupermarketReceipt.implementations;
 
-public class OfferTypeZForXFactory
+public static class OfferTypeZForXFactory
 {
-    public IOfferTypeStrategy Create(Product product, int z, int forY)
+    public static IOfferTypeStrategy Create(Product product, int z, int forY)
     {
         Discount f(double quantity, double unitPrice)
         {

@@ -36,9 +36,7 @@ public class ReceiptGenerator
                     x = 2;
                     if (quantityAsInt >= 2)
                     {
-                        var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
-                        var discountN = unitPrice * quantity - total;
-                        discount = new Discount(product, "2 for " + PrintPrice(offer.Argument), -discountN);
+                        discount = OfferTypeZForAmountFactory.Create(product, 2, offer.Argument).CalculateDiscount(quantity, unitPrice);
                     }
                 }
 
@@ -46,14 +44,13 @@ public class ReceiptGenerator
                 var numberOfXs = quantityAsInt / x;
                 if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
                 {
-                    discount = (new OfferTypeZForXFactory()).Create(product, 3, 2).CalculateDiscount(quantity, unitPrice);
+                    discount = OfferTypeZForXFactory.Create(product, 3, 2).CalculateDiscount(quantity, unitPrice);
                 }
 
                 if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
                 if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                 {
-                    var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                    discount = new Discount(product, x + " for " + PrintPrice(offer.Argument), -discountTotal);
+                    discount = OfferTypeZForAmountFactory.Create(product, 5, offer.Argument).CalculateDiscount(quantity, unitPrice);
                 }
 
                 if (discount != null)

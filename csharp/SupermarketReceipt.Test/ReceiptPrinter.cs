@@ -6,11 +6,8 @@ namespace SupermarketReceipt
 {
     public class ReceiptPrinter
     {
-        private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
-
         private readonly int _columns;
-
-
+        
         public ReceiptPrinter(int columns)
         {
             _columns = columns;
@@ -87,14 +84,12 @@ namespace SupermarketReceipt
 
         private string PrintPrice(double price)
         {
-            return price.ToString("N2", Culture);
+            return PricePrinter.Print(price);
         }
 
         private static string PrintQuantity(ReceiptItem item)
         {
-            return ProductUnit.Each == item.Product.Unit
-                ? ((int) item.Quantity).ToString()
-                : item.Quantity.ToString("N3", Culture);
+            return QuantityPrinter.Print(item);
         }
         
     }
