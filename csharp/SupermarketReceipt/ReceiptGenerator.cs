@@ -17,6 +17,7 @@ public class ReceiptGenerator
                 var quantityOptional = cart.GetItemQuantity(product);
                 if (!offers.ContainsKey(product) || !quantityOptional.HasValue)
                 {
+                    //TODO okay the offers.ContainsKey() is redundant because I iterate over the offers.Keys but will fix later
                     continue;
                 }
                 
@@ -28,13 +29,10 @@ public class ReceiptGenerator
                 Discount discount = null;
                 if (offer.OfferType == SpecialOfferType.TwoForAmount)
                 {
-                    if (quantityAsInt >= 2)
-                    {
-                        discount = OfferTypeZForAmountFactory.Create(product, 2, offer.Argument).CalculateDiscount(quantity, unitPrice);
-                    }
+                    discount = OfferTypeZForAmountFactory.Create(product, 2, offer.Argument).CalculateDiscount(quantity, unitPrice);
                 }
 
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
+                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
                 {
                     discount = OfferTypeZForXFactory.Create(product, 3, 2).CalculateDiscount(quantity, unitPrice);
                 }
@@ -43,7 +41,7 @@ public class ReceiptGenerator
                 {
                     discount = OfferTypeZPercentDiscount.Create(product, offer.Argument).CalculateDiscount(quantity, unitPrice);
                 }
-                if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
+                if (offer.OfferType == SpecialOfferType.FiveForAmount)
                 {
                     discount = OfferTypeZForAmountFactory.Create(product, 5, offer.Argument).CalculateDiscount(quantity, unitPrice);
                 }
@@ -52,10 +50,5 @@ public class ReceiptGenerator
                     receipt.AddDiscount(discount);
             }
             
-        }
-        
-        private string PrintPrice(double price)
-        {
-            return price.ToString("N2", Culture);
         }
 }
