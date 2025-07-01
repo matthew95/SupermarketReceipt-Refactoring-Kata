@@ -1,3 +1,23 @@
+# Notes by me:
+I spent a few hours on this with a varying degree of focus and breaks.
+
+## Refactored portions and approach:
+Please look through the commits I made in the past few hours.
+It's not perfect (yet) but in a better state than when I started.
+
+My priorities were:
+ - try to improve the code according to the solid principles.
+ - And as a general heuristic: decoupling logic and encapsulate complexity.
+ 
+The parts I spent most of my efforts on:
+ - The Generate method in the ReceiptGenerator class, originaly in ShoppingCart.HandleOffers()
+ - Please look at the changes in my commits 
+
+ Guido
+
+
+
+
 # The Supermarket Receipt Refactoring Kata
 
 This is a variation of a popular kata described in http://codekata.com/kata/kata01-supermarket-pricing/. The aim of the exercise is to build automated tests for this code, refactor it, and add a new feature. 
